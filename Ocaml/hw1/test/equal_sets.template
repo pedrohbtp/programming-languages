@@ -1,0 +1,3 @@
+let equal_sets_test0_%MAGIC% = equal_sets [1;3] [3;1;3]
+let equal_sets_test1_%MAGIC% = not (equal_sets [1;3;4] [3;1;3])
+

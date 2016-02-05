@@ -1,0 +1,25 @@
+_______________________________
+Observations:
+_______________________________
+
+On file SwapTest. There might be an infinite loop
+if state.swap(a, b) keeps returning false.
+It returns false when value on position a of the array is less or equal to zero
+or when value on position b of the array is greater or equal to the maximum
+value allowed. (normally 127 unless specified).
+
+The infinite loop happens if all elements are equal to 0 or equal to maxvalue.
+That only happens if there are race conditions. Because if there are not,
+then the sum should be constant.
+For instance, even for the synchronized class with only one thread, we might still
+fall into an infinite loop if we do the following:
+java UnsafeMemory Synchronized 1 10000 6 0 0 0 0
+
+The infinite loop is because all the values in the array are equal to 0.
+Then it is not possible to decrement any of them. The swap will always fail and 
+it will run forever.
+
+
+BetterSorry:
+When comparing to see if less than zero or greater than maxvalue,
+returns true so the progress does not stop.

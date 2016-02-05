@@ -1,0 +1,76 @@
+---------------------------------
+Implementation:
+---------------------------------
+
+computed_periodic_point eq f p x:
+
+filter_blind_alleys g:
+My assumption is that a blind alley is a rule that contains 
+at least one symbol for which all the rules are also blind alleys.
+
+Therefore, the approach I took was to go bottom up. 
+The algorithm is the following:
+    1) Save all terminal symbols in a list
+    2) Check is there are any rules that contain only terminal symbols
+    If there are
+        Make the left side of those rules also marked as terminal
+        Check if the current list of terminal symbols is equal to the updated 
+        listof terminal symbols after marking the left sides
+        if yes:
+            Then you have encountered all non-blind rules
+            Eliminate from the original list all rules 
+            such that its left side is not part of the list of terminal symbols
+        if no: 
+            Jump to 1 with the updated rules
+    If there are none
+        Just return epmty since all are blind alleys
+
+My approach visits the entire list of rules until there is no more update 
+in what called above the "terminal symbols" list. 
+Which means it has complexity
+of approximatelly O(N^2), where N is the number of rules.
+
+I also considered building a graph with the corresponding structure of rules
+and symbols. And then trying to transverse the graph to prove or disprove a 
+rule is a blind alley. However building the data structure and trasversing it
+was more challenging than the approach described before. So I abandoned it.
+
+
+------
+Implementation of Warmup functions
+------
+subset la lb
+Checks each element of a and searches it in b.
+If all elements of a are in b, then returns true.
+
+equal_sets a b:
+Checks if a is a subset of b and if b is a subset of a.
+If yes, then they are equal, else they are different.
+
+set_union a b:
+appends list b after list a
+
+set_intersection a b:
+for each element in a, search for it in b.
+if it is in b, then append to a list to be returned as the intersection.
+
+set_diff a b:
+for each element in a, search for it in b.
+if it is not in b, then append to a list to be returned as the difference.
+
+computed_fixed_point eq f x:
+recursively call itself passing as x the composition f x until the 
+eq is satisfied. Eq can be (=), (>) or whatever other of these.
+
+computed_periodic_point eq f p x:
+Composes f x p number of times. Test if it satisfies the condition.
+If not, continue trying recursively passing as x the composed f x.
+
+
+        
+
+
+
+
+
+

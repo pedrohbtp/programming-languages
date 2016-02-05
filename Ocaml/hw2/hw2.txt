@@ -1,0 +1,90 @@
+---------------------------------
+Implementation:
+---------------------------------
+
+parse_prefix gram acceptor frag :
+
+The approach to solve the problem is to see the grammar as a tree and trasverse
+it in Depth First Search order. 
+There are two important structures that I needed to keep track during the 
+iterations. One is the suffix string and the other is the list of symbols that
+need to be matched. 
+Every time I visit a node that is non-terminal, I pop its value from the list
+of symbols that need to be matched and stack its lists. 
+Take for for example the following grammar:
+A,
+[ A, [ [N B] ];
+B, [ [N C, T"1"]; [N C; T"2"] ];
+C, [ [T"3"] ]
+
+We want to look for ["3";"2"]
+It starts with symbols to match = []
+Then, adds [N B] to it. It then vistis node B, so B is popped from the list and
+appends its first rule: [N C, T"1"]. Then C is popped from the list to be 
+visited and its rule is put in the list as ["3"; "1"].
+If the head of the list is a terminal, the algorithm compares with the head of
+the suffix list. The head of the symbols to match matches the head of the suffix
+list, so we pop the first element on both of them. The list of symbols to match
+is then ["1"] and the suffix list is turned into ["2"]. We compare again their
+heads. This time they don't match. Then backtrack returning None. 
+When we backtrack, we append the other rule of B instead. So the symbols to 
+match become [N C; T"2"] and the suffix list is back to be ["3";"2"].
+Then we pop C from the list and append its rule. 
+This way the symbols to match become ["3";"2"]. We compare the heads of the 
+suffix list and the symbols to match. Since they match, we pop them. We compare
+again and they match again, then we pop both of them. Since the list of 
+symbols to match is empty, we pass the current derivation to the acceptor with
+the suffix, which in this case is empty. 
+If the acceptor returns None, we continue, else we report what we have.
+To summarize, the states of the suffix list and the list of symbols to match 
+are the following
+0) INITIALIZE
+suffix          ["3";"2"]
+sym_to_match    []
+1) EXPLORE A
+suffix          ["3";"2"]
+sym_to_match    [B]
+2) EXPLORE CHILD 1 B
+suffix          ["3";"2"]
+sym_to_match    [C, "1"]
+3) EXPLORE C
+suffix          ["3";"2"]
+sym_to_match    ["3"; "1"]
+4) COMPARE TERMINAL SYMBOLS AND POP
+suffix          ["2"]
+sym_to_match    ["1"]
+5) BACKTRACK AND EXPLORE CHILD 2 OF B
+suffix          ["3";"2"]
+sym_to_match    [C;"2"]
+6) EXPLORE C
+suffix          ["3";"2"]
+sym_to_match    ["3";"2"]
+7) COMPARE AND POP
+suffix          ["2"]
+sym_to_match    ["2"]
+8) COMPARE AND POP
+suffix          []
+sym_to_match    []
+-----------------------------------------------------------
+Challanges
+-----------------------------------------------------------
+It was challenging to implement this algorithm using functional programming.
+Not being able to use assignments or keep track of states explicitly makes
+the logic of the code confusing. It is hard to follow the mutually recursive 
+functions to understand how the data is being transformed. In an imperative
+language it should be easier.
+
+One of the biggest gotchas of the algorithm was how to avoid that it would fall
+into a blind alley or simply keep expanding an expression forever even if it is
+not a blind alley. The solution chosen is to compare the length of the list of 
+symbols to match with the total length of the fragment. If the list of symbols
+to match is greater than the length of the fragment, we backtrack. That limits
+the recursion depth.
+There is still one problem that might arise. In the case that the recursion 
+does not increase the length of the list of symbols to match, but still goes 
+forever. For example: 
+A,[N B]
+B,[N B]
+In this case, B keep calling itself forever, but since the list of symbols to 
+be matched does not increase (it pops itself and then ads itself), the algorithm
+goes forever.

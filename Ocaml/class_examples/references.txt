@@ -1,0 +1,46 @@
+Basics:
+https://ocaml.org/learn/tutorials/basics.html
+http://rigaux.org/language-study/syntax-across-languages-per-language/OCaml.html
+
+Types:
+http://www2.lib.uchicago.edu/keith/ocaml-class/userdefined.html
+http://www2.lib.uchicago.edu/keith/ocaml-class/data.html
+really good: http://caml.inria.fr/pub/docs/oreilly-book/html/book-ora016.html
+
+**********Basic types
+bool: boolean. true, false
+int:
+float: Ex: 1. or 1.4 are floats. 1 is not a float because it doesn't have the dot.
+char: Ex: 'a' '\n'
+tuples: comma separated values. can be heterogeneous ex: 1,"a",4.
+lists: homonegeous. Meaning all elements must be of the same type [1;2;3]
+unit: like void. Denoted as (). Used to identify when function don't return a value
+for example something that prints on the screen and doesn't return anything
+function: Functions can be passed around, stored in data structures and computed dynamically
+ex of a lambda expression(nameless function): fun n -> n+1;;
+Ex of a list of functions: [(fun n->n+1);(fun n->n*2)];;
+references: like a points in C. 
+ex of referencing an int and accessing its value
+# !(ref 1) + 1;;
+- : int = 2
+
+**********Disjoint Union
+|: serves like an or for types
+of: specifies the type of each disjunction. Is necessary so there is no ambiguity
+before the of there needs to be a constructor which can have whatever names chosen.
+Ex: 
+# type intorstring = Int of int | String of string;; (*Defining type*)
+# Int 12;;
+# String "foo";;
+# [Int 12; String "foo"];; (*Is valid because they are of type intorstring*)
+
+************Polymorphic types
+Defined using 'whatever  (* Notice the single quote *)
+Examples:
+# type 'a mylist = Nil | Cons of 'a * 'a mylist;;
+# type ('nonterminal, 'terminal) symbol =
+  | N of 'nonterminal
+  | T of 'terminal
+  ;;
+ 
+

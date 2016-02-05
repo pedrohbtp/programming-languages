@@ -1,0 +1,3 @@
+let set_union_test0_%MAGIC% = equal_sets (set_union [] [1;2;3]) [1;2;3]
+let set_union_test1_%MAGIC% = equal_sets (set_union [3;1;3] [1;2;3]) [1;2;3]
+let set_union_test2_%MAGIC% = equal_sets (set_union [] []) []
