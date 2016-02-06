@@ -1,6 +1,4 @@
 import java.util.concurrent.atomic.AtomicIntegerArray;
-
-//TODO: Implement it. 
 class GetNSetState implements State {
     // private byte[] value;
     private AtomicIntegerArray value;

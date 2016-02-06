@@ -5,8 +5,8 @@ from subprocess import Popen, PIPE
 
 NUM_THREADS = 8
 NUM_SWAPS = 10000
-ARRAY_LIMIT = 100
-ARRAY_LENGTH = 100
+ARRAY_LIMIT = 10
+ARRAY_LENGTH = 10
 ARRAY = [str(ARRAY_LIMIT//2)]*ARRAY_LENGTH
 CLASSES_TO_RUN = ["Null", "Synchronized","Unsynchronized", "GetNSet", "BetterSafe", "BetterSorry"]
 JAVA = "java"
