@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% Tests
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This file just contains examples of use of the code
 
 % Basic examples:
 % Example1:
@@ -20,12 +21,15 @@
 
 %kenken_testcase(Size,Constraints),maplist(constraint(Size,Grid), Constraints).
 %kenken_testcase(Size,Constraints),kenken(Size,Constraints,Grid).
-%kenken_testcase(Size,Constraints),plain_kenken(Size,Constraints,Grid).
+%kenken_testcase4Sol(Size,Constraints),plain_kenken(Size,Constraints,Grid).
 %kenken_testcase4Sol(Size,Constraints),kenken(Size,Constraints,Grid).
 %kenken_testcase4Sol(Size,Constraints),maplist(constraint(Size,Grid), Constraints).
 %kenken_testcase4NoSol(Size,Constraints),kenken(Size,Constraints,Grid).
 %kenken_testcase4NoSol(Size,Constraints),maplist(constraint(Size,Grid), Constraints).
 
+% To measure performance do the following:
+% statistics, kenken_testcase4Sol(Size,Constraints),kenken(Size,Constraints,Grid), statistics.
+% statistics, kenken_testcase4Sol(Size,Constraints),plain_kenken(Size,Constraints,Grid), statistics.
 
 
 

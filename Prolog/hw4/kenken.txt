@@ -34,7 +34,22 @@ search space.
 ---------------------------------
 Comparison
 ---------------------------------
-
+Tests performed on lnxsrv07.seas.ucla.edu.
+To make a comparison I solved the given example of size 4 and recorded the
+statistics from it. The measurements are to find the first solution.
+* kenken:
+  cpu time, since_last = 0.000 sec
+* plain_kenken:
+  cpu time, since_last = 0.696 sec
+ 
+For the execution of the example with grid size 6, only kenken finished.
+plain_kenken did not finish.
+* kenken:
+  cpu time, since_last = 0.001 sec
+  
+We can see the great difference between the two. 
+While one implementation doesn't even finish, the 
+other finishes in 0.001 sec.
 
 ---------------------------------
 No-op kenken
