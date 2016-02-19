@@ -1,0 +1,77 @@
+---------------------------------
+Implementation of kenken:
+---------------------------------
+The rules applied to solve are the following:
+length(Grid,Size): Constrains the Grid to have a certain size
+rows_cols_restrict_domain(Grid,Size): Constrains each element to go
+from 1 to the value of Size. And constrains elements on a single row to 
+be unique and elements in a single column to be unique.
+maplist(constraint(Size,Grid), Constraints): Constrains the Grid to 
+obey the operations that are passed in "Constraints". 
+label(Grid): Fills the remaining squares that were not filled using
+only the operations.
+
+The distinct point in this implementation is the use of "fd" predicates.
+They are used in two ways. One is to restrict the domain of the columns and rows
+so that each column has unique numbers and each row has unique numbers.
+It is also used to restrict the domain of each number allowing them to assume a 
+value only from 1 to size of the Grid.
+This greatly benefits performance.
+
+---------------------------------
+Implementation of plain_kenken:
+---------------------------------
+Plain kenken applies the following rules to solve the problem:
+length(Grid,Size): The same way as kenken above.
+maplist(constraint_plain(Size,Grid), Constraints): The same way as kenken above
+rows_cols_constraint_plain(Grid,Size): This goal checks if the grid has good 
+rows and columns. That means that it checks if an element is unique within its 
+row and column. It if fails it backtracks and solves the "Constraints" list again.
+This method is a lot more expensive than the previous one.
+Plain kenken does not use the "fd" predicates, therefore it just explores a bigger
+search space.
+
+---------------------------------
+Comparison
+---------------------------------
+
+
+---------------------------------
+No-op kenken
+---------------------------------
+
+*Interface:
+kenken_noop(Size, Constraints, Grid).
+Where Size is the length of the side of the Grid. 
+Grid is a list of lists. Size should be an atomic term. Constraints and Grid 
+are terms you can query for. In case it is not possible to find a solution, 
+returns no. Otherwise it presents the Value for Grid and the list Constraints.
+
+*Constraints:
+Constraints is a list of constraints
+of the form Op(Value, List_index).
+Given this. Internally the program tries to match the operations. The values of
+"Value", "List_index" must be passed as atomic terms.
+
+*Examples:
+1. kenken_noop(1,[],Grid).
+   Returns: 1
+2. kenken_noop(2,[Op1(2, [1-1,1-2]), Op2(2, [2-1,2-2])], Grid)
+   Returns: 
+   Op1 = * , Op2=*
+   Grid = [[1,2]
+           [2,1]]
+   Op1 = * , Op2=*
+   Grid = [[2,1]
+           [1,2]]
+   Op1 = / , Op2=/
+   Grid = [[1,2]
+           [2,1]]
+   Op1 = / , Op2=/
+   Grid = [[2,1]
+           [1,2]]
+   
+
+
+
+

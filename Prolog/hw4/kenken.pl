@@ -58,10 +58,11 @@ add(Grid,[Head|Tail],Sum,Res,Range):-
 element(Head,Grid,Val),
 fd_domain(Val,1,Range),
 % trace,
-% fd_domain(Val,1,Range),
+% fd_labeling(Val),
+fd_labeling(Val),
 S#=Sum+Val,
-add(Grid, Tail, S,Res,Range),
-fd_labeling(Val).
+add(Grid, Tail, S,Res,Range).
+
 
 
 %mult(El,[Head|Tail],Mult,Res)
@@ -78,9 +79,9 @@ mult(Grid,[Head|Tail],Mult,Res,Range):-
 element(Head,Grid,Val),
 fd_domain(Val,1,Range),
 %trace,
-S#=Mult*Val,
-mult(Grid, Tail, S,Res,Range),
-fd_labeling(Val).
+fd_labeling(Val),
+S #= Mult*Val,
+mult(Grid, Tail, S,Res,Range).
 
 % Succeeds if Ele1/Ele2 = Res or Ele2/Ele1 = Res
 %div(El,[Head|Tail],Mult,Res)
@@ -117,9 +118,48 @@ element(Ele_2_indx, Grid, Val2),
 fd_domain(Val1,1,Range),
 fd_domain(Val2,1,Range),
 %trace,
-(sub_elem(Val1, Val2,Res); sub_elem(Val2, Val1,Res)),
 fd_labeling(Val1),
-fd_labeling(Val2).
+fd_labeling(Val2),
+(sub_elem(Val1, Val2,Res); sub_elem(Val2, Val1,Res)).
+
+% Restrict domain for the rows and columns for kenken
+% Example: rows_restrict_domain(A,2).
+% Answer: A = [] ? ; A = [[_#2(1..2),_#19(1..2)]] ? ; and goes on
+rows_restrict_domain([],Len).
+rows_restrict_domain([Head|Tail],Len):-
+length(Head,Len),
+%trace,
+fd_all_different(Head),
+fd_domain(Head,1,Len),
+rows_restrict_domain(Tail,Len).
+
+% Restricts the domain both for the rows and for the cols
+% Example: rows_cols_restrict_domain(Grid,2).
+% Answer: Grid = [[_#2(1..2),_#19(1..2)],[_#48(1..2),_#65(1..2)]]
+% Example: fd_set_vector_max(255),rows_cols_restrict_domain(Grid,1).
+% Answer: 
+% Example: rows_cols_restrict_domain(Grid,4),sub(Grid,1-1,1-2,3,4).
+% Answer: Grid = [[4,1,_#48(2..3),_#77(2..3)],[_#142(1..3),_#159(2..4),_#188(1..4),_#217(1..4)],[_#282(1..3),_#299(2..4),_#328(1..4),_#357(1..4)],[_#422(1..3),_#439(2..4),_#468(1..4),_#497(1..4)]]
+% Example:rows_cols_restrict_domain(Grid,3),add(Grid, [1-1,1-2],0,4,3).
+% Answer: Grid = [[3,1,2],[_#89(1..2),_#106(2..3),_#135(1:3)],[_#176(1..2),_#193(2..3),_#222(1:3)]]
+% Should not display 2,2 in one of the answers!!!
+% Example: rows_cols_restrict_domain(Grid,2),div(Grid,1-1,1-2,1,2).
+% Answer: no
+
+rows_cols_restrict_domain(Grid,Len):-
+length(Grid,Len),
+rows_restrict_domain(Grid,Len),
+transpose(Grid,Ts),
+rows_restrict_domain(Ts,Len).
+%rows_restrict_domain(Ts).
+
+% Labels all the remaining squares
+% Example: rows_cols_restrict_domain(Grid,2), label(Grid).
+% Answer: Grid = [[1,2],[2,1]] and Grid = [[2,1],[1,2]]
+label([]).
+label([Head|Tail]):-
+fd_labeling(Head),
+label(Tail).
 
 
 % Checks if the elements are from 1 to Len
@@ -132,7 +172,6 @@ elements_in_range([Head|Tail],Len):-
 fd_domain(Head,1,Len), %If element is in range(1,Len)
 fd_labeling(Head),
 elements_in_range(Tail,Len).
-
 
 % Test if all elements of the list are in 
 % the range of 1 to N and are unique and the list
@@ -147,7 +186,6 @@ length(List,Len),
 elements_in_range(List,Len),
 elements_unique(List).
 
-
 % Checks if all the rows in a matrix
 % have values between 1 and N
 %Example: rows_grid_bounds([[1,2],[2,1]],2). yes
@@ -157,6 +195,7 @@ rows_grid_bounds([Head|Tail],N):-
 good_list(Head,N),
 rows_grid_bounds(Tail,N).
 
+% NOT USED IN THIS KENKEN
 % Tests if the rows of the grid go from 0 to Len and there are no repeated 
 % numbers and the numbers in the Cols of the Grid go from 1 to Len and there are 
 % no repeated numbers.
@@ -184,12 +223,16 @@ match(Res*(ListIndx),Grid,Size):-mult(Grid,ListIndx,1,Res,Size).
 match(-(Res,Ind1,Ind2),Grid,Size):-sub(Grid,Ind1,Ind2,Res,Size).
 match(/(Res,Ind1,Ind2),Grid,Size):-div(Grid,Ind1,Ind2,Res,Size).
 
-
 % Actual predicate to solve kenken
+% The constraints must be given in this case
 kenken(Size,Constraints,Grid):-
 length(Grid,Size),
+rows_cols_restrict_domain(Grid,Size),
 maplist(constraint(Size,Grid), Constraints),
-rows_cols_constraint(Grid,Size).
+label(Grid),
+rows_cols_constraint(Grid,Len).
+
+
 
 
 
@@ -349,102 +392,3 @@ length(Grid,Size),
 maplist(constraint_plain(Size,Grid), Constraints),
 rows_cols_constraint_plain(Grid,Size).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%% Tests
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Basic examples:
-% Example1:
-% kenken(1,[],T).
-% plain_kenken(1,[],T).
-% Answer: T=[[1]].
-% Example2: 
-% kenken(2,[],T).
-% plain_kenken(2,[],T).
-% Answer: T = [[1,2],[2,1]] and T = [[2,1],[1,2]]
-% Example3:
-% kenken(3,[],T).
-% plain_kenken(3,[],T).
-% Answer: A set of 12 answers 
-
-
-
-%kenken_testcase(Size,Constraints),maplist(constraint(Size,Grid), Constraints).
-%kenken_testcase(Size,Constraints),kenken(Size,Constraints,Grid).
-%kenken_testcase(Size,Constraints),plain_kenken(Size,Constraints,Grid).
-%kenken_testcase4(Size,Constraints),kenken(Size,Constraints,Grid).
-%kenken_testcase4(Size,Constraints),maplist(constraint(Size,Grid), Constraints).
-
-
-
-
-kenken_testcase(
-  6,
-  [
-   +(11, [1-1, 2-1]),
-   /(2, 1-2, 1-3),
-   *(20, [1-4, 2-4]),
-   *(6, [1-5, 1-6, 2-6, 3-6]),
-   -(3, 2-2, 2-3),
-   /(3, 2-5, 3-5),
-   *(240, [3-1, 3-2, 4-1, 4-2]),
-   *(6, [3-3, 3-4]),
-   *(6, [4-3, 5-3]),
-   +(7, [4-4, 5-4, 5-5]),
-   *(30, [4-5, 4-6]),
-   *(6, [5-1, 5-2]),
-   +(9, [5-6, 6-6]),
-   +(8, [6-1, 6-2, 6-3]),
-   /(2, 6-4, 6-5)
-  ]
-).
-
-kenken_testcase4Sol(
-  4,
-  [
-   +(6, [1-1, 1-2, 2-1]),
-   *(96, [1-3, 1-4, 2-2, 2-3, 2-4]),
-   -(1, 3-1, 3-2),
-   -(1, 4-1, 4-2),
-   +(8, [3-3, 4-3, 4-4]),
-   *(2, [3-4])
-  ]
-).
-
-% No solution
-kenken_testcase4Nosol(
-  4,
-  [
-   /(2, 1-2, 1-3),
-   *(6, [3-3, 3-4]),
-   +(3, [1-1, 2-1]),
-   -(3, 2-2, 2-3)
-   
-  ]
-).
-
-kenken(
-  4,
-  [
-   +(6, [1-1, 1-2, 2-1]),
-   *(96, [1-3, 1-4, 2-2, 2-3, 2-4]),
-   -(1, 3-1, 3-2),
-   -(1, 4-1, 4-2),
-   +(8, [3-3, 4-3, 4-4]),
-   *(2, [3-4])
-  ],
-  T
-), write(T), nl, fail.
-
-plain_kenken(
-  4,
-  [
-   +(6, [1-1, 1-2, 2-1]),
-   *(96, [1-3, 1-4, 2-2, 2-3, 2-4]),
-   -(1, 3-1, 3-2),
-   -(1, 4-1, 4-2),
-   +(8, [3-3, 4-3, 4-4]),
-   *(2, [3-4])
-  ],
-  T
-), write(T), nl, fail.
