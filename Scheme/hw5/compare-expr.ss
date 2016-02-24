@@ -1,23 +1,6 @@
 ;------------------------------
 ; Definition of variables used for testing 
 ;------------------------------
-; Tests
-(compare-expr '(* 10 
-                                   (if (equal? a 1)
-                                        ((lambda (b) (+ b 9)) a)
-                                        (+ a 42)
-                                   )
-                                
-                        )
-               '(* 10 
-                               (if (equal? a 3)
-                                    ((lambda (b) (+ b 7)) a)
-                                    (+ a a)
-                                )
-                            
-                    )
-)
-
 ; My test-x and test-y definitions
 (define test-x '(list
                         "hello"
