@@ -1,0 +1,150 @@
+-------------------
+Scheme
+-------------------
+Introduction to scheme video on youtube.
+Scheme is a descendat of Lisp language
+The most fundamental structure is the List.
+Example of list: '(1,2,3,4) shorthand for (quote (1 2 3))
+Prefix sintax, fully parenthesise. 
+Everything should be inside parenthesis.
+Example (+ 1 2 3)
+Applying a function: 
+(f x)
+(f x y)
+
+List operation:
+*list: Used to create list the same way as quote and '.
+Example: (list 1 2 3 4)
+*car(like head): gives you the first element of the list
+(car '(1 2 3))
+*cdr(like tail): (cdr '(1 2 3))
+Combining them: (car(cdr '(1 2 3)))
+*cons(like append): Adds to the front of the list
+(cons 2 '())
+
+Defining operators: 
+*define: Lets me give names to things
+(define lst '(1 2 3))
+
+
+Pulling things out of a list and then using the elements
+of the list.
+Example: (define sum '(+ 2 3))
+((car sum) 2 3)
+
+*if: Always use it as (if exp then-exp else-exp)
+Anything that is not the false boolean is considered true.
+Ex: (if (positive? -5) (error "no") 2)
+
+*#t : It is the true boolean value
+*#f: It is the false boolean value
+*and: logical operator and
+*or: logical operator or
+*? : character used for testing. 
+Ex: (boolean? #t) tests if #t is a boolean. Returns #t
+
+*pair: structure that has only two objects.
+A pair is represented as Ele1 . Ele2
+Ex: (pair? '(1 . 2)) returns true
+(pair? (cons 1 2)) returns true
+
+*cond: Contitional expression. Compared to swtich in other
+languages.
+syntax: (cond [(if1-exp) (then1-exp)] [(if2-exp) (then2-exp)]...)
+The default match is the character _
+Ex:
+(define my_conditional 
+    (cond 
+    [(positive? -5) (error "nope")]
+    [(zero? -5) (error "nope2")]
+    [(positive? 5) 'here])
+)
+*match: Used for pattern matching like OCaml
+It also binds the value to the pattern that you are 
+comparing just like OCaml does.
+Ex: 
+(match '(1 2 3)
+[(list a b a) (list a b)]
+[(list a b c) (list c b a)])
+
+*lambda: to create anonymous functions
+Syntax: (lambda (arguments) body)
+
+*eval: Used to unquote an objects
+Ex: (eval '(+ 1 2))
+
+--------------------------------------
+Description of the assignment
+--------------------------------------
+Build a scheme code that evaluates itself.
+Everything in scheme is both code and object.
+TCP key word that I need to implement.
+Ex:
+(compare-expr 12 20)  ===>  (if TCP 12 20)
+Means that if we are looking at TCP we get 12 but if we are
+not looking at TCP we get 20.
+If they are the same like ELEM ELEM, the output should be:
+(compare-expr ELEM ELEM)  ===>  ELEM
+
+# All types to be taken into consideration:
+*Constant literals:
+number
+boolean
+character
+string
+bytevector
+*Variable reference:
+Cannot do variable?
+*Procedure calls
+*quote:
+*let:
+*if:
+
+Can give undefined behavior if output is not made 
+of those allowed expressions
+
+
+Starting:
+(match (x y)
+[(equal? x y) x]
+[(number? x ]
+[ boolean?
+[ bytevector?
+[ char?
+[ string?
+[ list? 
+[ equal? (length x) (length y)
+# also check the lenght of the lists
+
+Besides that, go recursively inside the list
+
+
+Algorithm:
+match func:
+if length(x) not length(y) ->
+    output (if TCP x y)
+else:
+If expressions x and y are equal ->
+    output x
+else:
+if length(x) =1
+    ; That means they are 
+    ; the same length, not equal
+    ; and of length 1
+    output (if TCP x y)
+else: 
+; Not equal, same length and 
+; length greater than 1
+    match (head x) (head y)
+    match (tail x) (tail y)
+
+Check if it is a "constant literal",
+a variable reference, a procedure call,
+a "quote" word, a "lambda", a "let" or
+an "if"
+
+
+
+
+
+
