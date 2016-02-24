@@ -2,45 +2,53 @@
 ; Definition of variables used for testing 
 ;------------------------------
 ; Tests
-(compare-expr (let ((a 3))
-                               (if (equal? 3)
-                                    (lambda (a) (+ a 7))
+(compare-expr '(* 10 
+                                   (if (equal? a 1)
+                                        ((lambda (b) (+ b 9)) a)
+                                        (+ a 42)
+                                   )
+                                
+                        )
+               '(* 10 
+                               (if (equal? a 3)
+                                    ((lambda (b) (+ b 7)) a)
                                     (+ a a)
                                 )
-                           )
-                       )
+                            
+                    )
+)
 
 ; My test-x and test-y definitions
-(define test-x '(
-                    (* 10 (let ((a 1))
-                               (if (equal? 1)
-                                    (lambda (a) (+ a 9))
-                                    (+ a 42)
-                               )
-                           ) 
-                    )
-                    "hello"
-                    #t
-                    #f
-                    #t
-                    #f
-                    1
-                    (quote (c d))
-                    '(2 10)
-                    (cons 10 9)
-                    (list 9 7)
+(define test-x '(list
+                        "hello"
+                        (* 10 (let ((a 1))
+                                   (if (equal? a 1)
+                                        ((lambda (b) (+ b 9)) a)
+                                        (+ a 42)
+                                   )
+                               ) 
+                        )
+                        #t
+                        #f
+                        #t
+                        #f
+                        1
+                        (quote (c d))
+                        '(2 10)
+                        (cons 10 9)
+                        (list 9 7)
                 )
 )
 
-(define test-y '(
+(define test-y '(list
+                    "hello"
                     (* 10 (let ((a 3))
-                               (if (equal? 3)
-                                    (lambda (a) (+ a 7))
+                               (if (equal? a 3)
+                                    ((lambda (b) (+ b 7)) a)
                                     (+ a a)
                                 )
                            ) 
                     )
-                    "hello"
                     #t
                     #f
                     #f
@@ -95,14 +103,14 @@
 ; and evaluating y is equal to evaluating (compare-expr x y) with TCP=#f
 ; then return true, else false
 (define (test-compare-expr x y)
-    (if ((and 
+    (if (and 
               (equal? (eval x) (eval (assign_TCP x y #t)))
               (equal? (eval y) (eval (assign_TCP x y #f)))   
-        ))
+        )
         ; then
-        (#t)
+        #t
         ;else
-        (#f)
+        #f
     )
 )
 
@@ -165,12 +173,13 @@
 ; Receives 6 arguments representing 2 ifs.
 ; Compare the expressions 
 (define (compare_ifs compx compy thenx theny elsex elsey)
-    (cond
+    `(if ,(compare-expr compx compy) ,(compare-expr thenx theny) ,(compare-expr elsex elsey))
+    ; (cond
         ; If the comparison of the ifs are equal, then check the then and else statements
-        [(equal? compx compy) `(if ,compx ,(compare-expr thenx theny) ,(compare-expr elsex elsey))]
+        ;[(equal? compx compy) `(if ,compx ,(compare-expr thenx theny) ,(compare-expr elsex elsey))]
         ; If the arguments of the if are different, we consider the entire expression is different
-        [else if_tcp `(if ,compx ,thenx ,elsex) `(if ,compy ,theny ,elsey)]
-    )
+        ;[else (if_tcp `(if ,compx ,thenx ,elsex) `(if ,compy ,theny ,elsey))]
+    ; )
 )
 
 ; Receives two lists, both of length one and treat them
