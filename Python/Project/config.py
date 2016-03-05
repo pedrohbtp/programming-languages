@@ -2,7 +2,7 @@
 # Please put your Google API Key in GOOGLE_KEY
 # Change the TCP ports of the servers as desired
 
-GOOGLE_KEY="AIzaSyC0orE6ZmGGzQ-oqD930R3Dx-FSKhgm1Rg"
+GOOGLE_KEY=""
 
 SERVERS = {
     

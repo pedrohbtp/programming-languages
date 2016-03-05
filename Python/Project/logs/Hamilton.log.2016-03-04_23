@@ -1,0 +1,62 @@
+Hamilton:created
+Hamilton:Connection Made
+Hamilton:Line received
+Hamilton:AT Alford +56338361.888672644 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+Hamilton:Sending to Parker:AT Alford +56338361.888672644 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+Hamilton:Connection Lost
+Hamilton:created
+Hamilton:Connection Made
+Hamilton:Line received: AT Alford +56338507.442848497 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+Hamilton:Sending to Parker:AT Alford +56338507.442848497 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+Hamilton:Connection Lost
+2016-03-04 23:18:58.292255 Hamilton:created
+2016-03-04 23:19:09.703323 Hamilton:Connection Made
+2016-03-04 23:19:09.706813 Hamilton:Line received: AT Alford +56338904.129076534 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+2016-03-04 23:19:09.707412 Hamilton:Sending to Parker:AT Alford +56338904.129076534 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.39201445
+2016-03-04 23:19:09.709377 Hamilton:Connection Lost
+2016-03-04 23:23:03.659153 Hamilton:created
+2016-03-04 23:24:41.704316 Hamilton:Connection Made
+2016-03-04 23:24:41.706823 Hamilton:Line received: AT Welsh +56339236.252491528 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:24:41.707467 Hamilton:Sending to Parker:AT Welsh +56339236.252491528 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:24:41.709356 Hamilton:Connection Lost
+2016-03-04 23:29:18.844302 Hamilton:created
+2016-03-04 23:33:41.552246 Hamilton:created
+2016-03-04 23:37:27.707686 Hamilton:created
+2016-03-04 23:37:37.308579 Hamilton:Connection Made
+2016-03-04 23:37:37.312890 Hamilton:Line received: AT Bolden +56340011.856954628 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:37:37.314433 Hamilton:Sending to Parker:AT Bolden +56340011.856954628 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:37:37.316275 Hamilton:Connection Lost
+2016-03-04 23:41:04.703760 Hamilton:created
+2016-03-04 23:41:24.713005 Hamilton:Connection Made
+2016-03-04 23:41:24.716026 Hamilton:Line received: AT Bolden +56340239.296769434 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:41:24.716531 Hamilton:Sending to Parker:AT Bolden +56340239.296769434 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:41:24.718654 Hamilton:Connection Lost
+2016-03-04 23:43:07.271492 Hamilton:created
+2016-03-04 23:43:24.103071 Hamilton:Connection Made
+2016-03-04 23:43:24.105831 Hamilton:Line received: AT Bolden +56340358.600475603 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:43:24.106229 Hamilton:Sending to Parker:AT Bolden +56340358.600475603 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:43:24.107850 Hamilton:Connection Lost
+2016-03-04 23:44:02.852487 Hamilton:created
+2016-03-04 23:44:11.518558 Hamilton:Connection Made
+2016-03-04 23:44:11.522294 Hamilton:Line received: AT Bolden +56340406.017420584 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:44:11.522943 Hamilton:Sending to Parker:AT Bolden +56340406.017420584 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:44:11.524234 Hamilton:Connection Lost
+2016-03-04 23:44:13.300826 Hamilton:Connection Made
+2016-03-04 23:44:13.304246 Hamilton:Line received: AT Bolden +56340358.600475603 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:44:13.304961 Hamilton:Sending to Parker:AT Bolden +56340358.600475603 kiwi.cs.ucla.edu +34.068930-118.445127 1400794645.392014450
+2016-03-04 23:44:13.307231 Hamilton:Connection Lost
+2016-03-04 23:49:23.169437 Hamilton:created
+2016-03-04 23:49:47.506247 Hamilton:Connection Made
+2016-03-04 23:49:47.509579 Hamilton:Line received: AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:49:47.510221 Hamilton:Sending to Parker:AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:49:47.512198 Hamilton:Connection Lost
+2016-03-04 23:51:13.477317 Hamilton:created
+2016-03-04 23:51:40.309954 Hamilton:Connection Made
+2016-03-04 23:51:40.313926 Hamilton:Line received: AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:51:40.314454 Hamilton:Sending to Parker:AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:51:40.316482 Hamilton:Connection Lost
+2016-03-04 23:52:30.351617 Hamilton:created
+2016-03-04 23:52:38.105531 Hamilton:Connection Made
+2016-03-04 23:52:38.108937 Hamilton:Line received: AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:52:38.109745 Hamilton:Sending to Parker:AT Alford +0.563873386 kiwi.cs.ucla.edu +34.068930-118.445127 1400794699.108893381
+2016-03-04 23:52:38.112112 Hamilton:Connection Lost
